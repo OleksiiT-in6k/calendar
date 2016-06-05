@@ -20,6 +20,6 @@ public class Main {
         if (!(args.length == 0)) {
             month = Month.valueOf(args[0]);
         }
-        showCalendar(month, year);
+        showCalendar(month, year);//The main method. Print calendar for month by month and year.
     }
 }
