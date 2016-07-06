@@ -16,13 +16,15 @@ public class CalendarView {
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String LOCALE="en";
 
-    public static void printInColor(String text, String ansiColor){
+    public String output="";
+
+    private static void printInColor(String text, String ansiColor){
         System.out.print(ansiColor);
         System.out.printf("%4s", text);
         System.out.print(ANSI_RESET);
     }
 
-    public static void printDayInRightColor(LocalDate date, DayOfWeek dayOfWeek) {
+    private static void printDayInRightColor(LocalDate date) {
         if(CalendarModel.isToday(date)){
             printInColor(date.getDayOfMonth()+"", ANSI_BLUE);
         }
@@ -54,7 +56,7 @@ public class CalendarView {
         for (int i = 0; i < dates.size(); ) {
             LocalDate date = dates.get(i);
             if (dayOfWeek.equals(date.getDayOfWeek())) {
-                printDayInRightColor(date, dayOfWeek);
+                printDayInRightColor(date);
                 i++;
             } else System.out.printf("%4s", "");
             if (dayOfWeek.equals(dayOfWeek.SUNDAY)) {
