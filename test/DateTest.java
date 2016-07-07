@@ -4,39 +4,32 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
+import java.util.List;
 
 /**
  * Created by employee on 7/6/16.
  */
 public class DateTest {
-    @Before
-    public void prepare()throws  Exception{
 
-    }
-    public void checkMonth(int year,Month month,int daysQuantity){
-        CalendarModel calendarModel=new CalendarModel(month, Year.of(year));
-            for(int i=1;i<=daysQuantity;i++)
-            assertThat(calendarModel.getDates().get(i-1).getDayOfMonth(),is(i));
-    }
     @Test
-    public void checkFebruary2016(){
-            checkMonth(2016,Month.FEBRUARY,29);
+    public void checkFirstDayFebruary2016(){
+        CalendarModel calendarModel=new CalendarModel(Month.FEBRUARY,Year.of(2016));
+        List<LocalDate>localDates=calendarModel.getDates();
+        LocalDate firstRealDay=localDates.get(0);
+        assertThat(firstRealDay,is(LocalDate.of(2016,2,1)));
+
     }
 
     @Test
-    public void checkFebruary2017(){
-        checkMonth(2017,Month.FEBRUARY,28);
+    public void checkLastDayFebruary2017(){
+        CalendarModel calendarModel=new CalendarModel(Month.FEBRUARY,Year.of(2017));
+        List<LocalDate>localDates=calendarModel.getDates();
+        LocalDate firstRealDay=localDates.get(localDates.size()-1);
+        assertThat(firstRealDay,is(LocalDate.of(2017,2,28)));;
     }
 
-    public void checkMarch2016(){
-        checkMonth(2016,Month.MARCH,31);
-    }
-
-    public void checkMarch(){}
-
-    @Test
-    public void checkCurrentMonth(){}
 
 }
