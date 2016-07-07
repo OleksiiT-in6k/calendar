@@ -1,6 +1,5 @@
 import com.interlink.view.CalendarView;
 import org.junit.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.DayOfWeek;
@@ -34,7 +33,8 @@ public class TableTest {
     @Test
     public void signatureTest() {
         String realSignature = CalendarView.printRowSignatures();
-        assertThat(realSignature, is("  Mon Tue Wed Thu Fri" + ANSI_RED + " Sat" + ANSI_RESET + ANSI_RED + " Sun" + ANSI_RESET));
+        assertThat(realSignature, is("  Mon Tue Wed Thu Fri" + ANSI_RED + " Sat" + ANSI_RESET + ANSI_RED +
+                " Sun" + ANSI_RESET));
     }
 
     @Test
@@ -53,13 +53,18 @@ public class TableTest {
 
     @Test
     public void daysTestOnRightWeekendsColor() {
-        String realDays = CalendarView.printDaysByDates(generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31)), LocalDate.of(2016, 7, 28));
-        assertThat(realDays, allOf(containsString((ANSI_RED + "   " + 2 + ANSI_RESET)), containsString(ANSI_RED + "   " + 3 + ANSI_RESET)));
+        List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
+        String realDays = CalendarView.printDaysByDates(dates, LocalDate.of(2016, 7, 28)
+        );
+        assertThat(realDays, allOf(containsString((ANSI_RED + "   " + 2 + ANSI_RESET)),
+                                   containsString(ANSI_RED + "   " + 3 + ANSI_RESET))
+        );
     }
 
     @Test
     public void daysTestOnRightTodayDay() {
-        String realDays = CalendarView.printDaysByDates(generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31)), LocalDate.of(2016, 7, 28));
+        List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
+        String realDays = CalendarView.printDaysByDates(dates, LocalDate.of(2016, 7, 28));
         assertThat(realDays, containsString(ANSI_BLUE + "  " + 28 + ANSI_RESET));
     }
 
