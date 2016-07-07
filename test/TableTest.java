@@ -1,5 +1,6 @@
 import com.interlink.view.CalendarView;
 import org.junit.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.DayOfWeek;
@@ -40,7 +41,13 @@ public class TableTest {
     public void daysTestOnRightEnters() {
         List<LocalDate> dates = generateDateList(LocalDate.of(2016, 5, 1), LocalDate.of(2016, 5, 31));
         String realDays = CalendarView.printDaysByDates(dates, LocalDate.of(2016, 2, 1));
-        assertThat(realDays, allOf(containsString("\n   2"), containsString("\n   9"), containsString("\n  16"), containsString("\n  23"), containsString("\n  30")));
+        assertThat(realDays, allOf(
+                containsString("\n   2"),
+                containsString("\n   9"),
+                containsString("\n  16"),
+                containsString("\n  23"),
+                containsString("\n  30")
+        ));
 
     }
 
