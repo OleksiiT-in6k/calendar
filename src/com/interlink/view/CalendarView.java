@@ -1,6 +1,7 @@
 package com.interlink.view;
 
 import com.interlink.model.CalendarModel;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
@@ -14,56 +15,67 @@ public class CalendarView {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String LOCALE="en";
+    public static final String LOCALE = "en";
 
-    public String output="";
-
-    private static void printInColor(String text, String ansiColor){
-        System.out.print(ansiColor);
-        System.out.printf("%4s", text);
-        System.out.print(ANSI_RESET);
+    private static String printInColor(String text, String ansiColor) {
+        String outPut = "";
+        outPut += ansiColor;
+        outPut += String.format("%4s", text);
+        outPut += ANSI_RESET;
+        return outPut;
     }
 
-    private static void printDayInRightColor(LocalDate date) {
-        if(CalendarModel.isToday(date)){
-            printInColor(date.getDayOfMonth()+"", ANSI_BLUE);
+    private static String printDayInRightColor(LocalDate date,LocalDate today) {
+        String outputDay="";
+        if (date.equals(today)) {
+            outputDay += printInColor(date.getDayOfMonth() + "", ANSI_BLUE);
+        } else if (!CalendarModel.isWeekday(date)) {
+            outputDay += printInColor(date.getDayOfMonth() + "", ANSI_RED);
+        } else outputDay += String.format("%4s", date.getDayOfMonth());
+        return outputDay;
+    }
+
+    public static String printRowSignatures() {
+        String outputMonthes="";
+        outputMonthes += String.format("%1s", "");
+        for (DayOfWeek day = DayOfWeek.MONDAY; day.getValue() <= 5; day = day.plus(1)) {
+            outputMonthes += String.format("%4s", day.getDisplayName(TextStyle.SHORT, new Locale(LOCALE)));
         }
-            else
-        if (!CalendarModel.isWeekday(date)) {
-            printInColor(date.getDayOfMonth()+"", ANSI_RED);
-        } else System.out.printf("%4d", date.getDayOfMonth());
-    }
-
-    public static void printRowSignatures() {
-        System.out.printf("%1s", "");
-        for (DayOfWeek day=DayOfWeek.MONDAY;day.getValue()<=5;day=day.plus(1)) {
-            System.out.printf("%4s", day.getDisplayName(TextStyle.SHORT,new Locale(LOCALE)));
+        for (DayOfWeek day = DayOfWeek.SATURDAY; day.getValue() != 1; day = day.plus(1)) {
+            outputMonthes += ANSI_RED;
+            outputMonthes += String.format("%4s", day.getDisplayName(TextStyle.SHORT, new Locale(LOCALE)));
+            outputMonthes += ANSI_RESET;
         }
-        for (DayOfWeek day=DayOfWeek.SATURDAY;day.getValue()!=1;day=day.plus(1)){
-            System.out.print(ANSI_RED);
-            System.out.printf("%4s", day.getDisplayName(TextStyle.SHORT,new Locale(LOCALE)));
-            System.out.print(ANSI_RESET);
-        }
-        System.out.println();
+        return outputMonthes;
     }
 
-    public static void printTitleByDate(Month month, Year year){
-        System.out.println(month.getDisplayName(TextStyle.FULL,new Locale(LOCALE))+" "+year.getValue());
+    public static String printTitleByDate(Month month, Year year) {
+        String outputMonthAndYear = month.getDisplayName(TextStyle.FULL, new Locale(LOCALE)) + " " + year.getValue();
+        return outputMonthAndYear;
     }
 
-    public static void printDaysByDates(List<LocalDate>dates){
+    public static String printDaysByDates(List<LocalDate> dates,LocalDate today) {
+        String outputDays="";
         DayOfWeek dayOfWeek = DayOfWeek.MONDAY;
         for (int i = 0; i < dates.size(); ) {
             LocalDate date = dates.get(i);
             if (dayOfWeek.equals(date.getDayOfWeek())) {
-                printDayInRightColor(date);
+                outputDays+=printDayInRightColor(date,today);
                 i++;
-            } else System.out.printf("%4s", "");
+            } else
+                outputDays += String.format("%4s", "");
             if (dayOfWeek.equals(dayOfWeek.SUNDAY)) {
                 dayOfWeek = DayOfWeek.MONDAY;
-                System.out.println();
+                outputDays += "\n";
             } else dayOfWeek = dayOfWeek.plus(1);
         }
+        return outputDays;
+    }
+
+    public static void printCalendar(int day,Month month, Year year, List<LocalDate> dates) {
+        System.out.println(printTitleByDate(month,year));
+        System.out.println(printRowSignatures());
+        System.out.println(printDaysByDates(dates,LocalDate.of(year.getValue(),month,day)));
     }
 
 }
