@@ -1,8 +1,6 @@
 import com.interlink.view.CalendarView;
 import org.junit.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.time.DayOfWeek;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
@@ -26,13 +24,13 @@ public class TableTest {
 
     @Test
     public void titleTest() {
-        String realTitle = CalendarView.printTitleByDate(Month.FEBRUARY, Year.of(2014));
+        String realTitle = CalendarView.generateTitleByDate(Month.FEBRUARY, Year.of(2014));
         assertThat(realTitle, is("February 2014"));
     }
 
     @Test
     public void signatureTest() {
-        String realSignature = CalendarView.printRowSignatures();
+        String realSignature = CalendarView.generateRowSignatures();
         assertThat(realSignature, is("  Mon Tue Wed Thu Fri" + ANSI_RED + " Sat" + ANSI_RESET + ANSI_RED +
                 " Sun" + ANSI_RESET));
     }
@@ -40,7 +38,7 @@ public class TableTest {
     @Test
     public void daysTestOnRightEnters() {
         List<LocalDate> dates = generateDateList(LocalDate.of(2016, 5, 1), LocalDate.of(2016, 5, 31));
-        String realDays = CalendarView.printDaysByDates(dates, LocalDate.of(2016, 2, 1));
+        String realDays = CalendarView.generateDaysByDates(dates, LocalDate.of(2016, 2, 1));
         assertThat(realDays, allOf(
                 containsString("\n   2"),
                 containsString("\n   9"),
@@ -54,7 +52,7 @@ public class TableTest {
     @Test
     public void daysTestOnRightWeekendsColor() {
         List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
-        String realDays = CalendarView.printDaysByDates(dates, LocalDate.of(2016, 7, 28)
+        String realDays = CalendarView.generateDaysByDates(dates, LocalDate.of(2016, 7, 28)
         );
         assertThat(realDays, allOf(containsString((ANSI_RED + "   " + 2 + ANSI_RESET)),
                                    containsString(ANSI_RED + "   " + 3 + ANSI_RESET))
@@ -64,7 +62,7 @@ public class TableTest {
     @Test
     public void daysTestOnRightTodayDay() {
         List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
-        String realDays = CalendarView.printDaysByDates(dates, LocalDate.of(2016, 7, 28));
+        String realDays = CalendarView.generateDaysByDates(dates, LocalDate.of(2016, 7, 28));
         assertThat(realDays, containsString(ANSI_BLUE + "  " + 28 + ANSI_RESET));
     }
 
