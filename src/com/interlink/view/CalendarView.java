@@ -35,7 +35,7 @@ public class CalendarView {
         return outputDay;
     }
 
-    public static String printRowSignatures() {
+    public static String generateRowSignatures() {
         String outputMonthes="";
         outputMonthes += String.format("%1s", "");
         for (DayOfWeek day = DayOfWeek.MONDAY; day.getValue() <= 5; day = day.plus(1)) {
@@ -49,12 +49,12 @@ public class CalendarView {
         return outputMonthes;
     }
 
-    public static String printTitleByDate(Month month, Year year) {
-        String outputMonthAndYear = month.getDisplayName(TextStyle.FULL, new Locale(LOCALE)) + " " + year.getValue();
+    public static String generateTitleByDate(Month month, int year) {
+        String outputMonthAndYear = month.getDisplayName(TextStyle.FULL, new Locale(LOCALE)) + " " + year;
         return outputMonthAndYear;
     }
 
-    public static String printDaysByDates(List<LocalDate> dates,LocalDate today) {
+    public static String generateDaysByDates(List<LocalDate> dates, LocalDate today) {
         String outputDays="";
         DayOfWeek dayOfWeek = DayOfWeek.MONDAY;
         for (int i = 0; i < dates.size(); ) {
@@ -72,10 +72,10 @@ public class CalendarView {
         return outputDays;
     }
 
-    public static void printCalendar(int day,Month month, Year year, List<LocalDate> dates) {
-        System.out.println(printTitleByDate(month,year));
-        System.out.println(printRowSignatures());
-        System.out.println(printDaysByDates(dates,LocalDate.of(year.getValue(),month,day)));
+    public static void printCalendar(LocalDate localDate, List<LocalDate> dates) {
+        System.out.println(generateTitleByDate(localDate.getMonth(),localDate.getYear()));
+        System.out.println(generateRowSignatures());
+        System.out.println(generateDaysByDates(dates,localDate));
     }
 
 }

@@ -8,7 +8,7 @@ import java.time.Year;
 public class Main {
 
     public static void showCalendar(Month month, Year year) {
-        CalendarView.printCalendar(LocalDate.now().getDayOfMonth(),month,year,new CalendarModel(month,year).getDates());
+        CalendarView.printCalendar(LocalDate.now(),new CalendarModel(month,year).getDates());
     }
 
     public static void main(String[] args) {//Parameter should be a name of the month(all letters are capital), like FEBRUARY, or empty.

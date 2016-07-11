@@ -24,7 +24,7 @@ public class TableTest {
 
     @Test
     public void titleTest() {
-        String realTitle = CalendarView.generateTitleByDate(Month.FEBRUARY, Year.of(2014));
+        String realTitle = CalendarView.generateTitleByDate(Month.FEBRUARY, 2014);
         assertThat(realTitle, is("February 2014"));
     }
 

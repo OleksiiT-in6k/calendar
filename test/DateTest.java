@@ -30,6 +30,4 @@ public class DateTest {
         LocalDate firstRealDay=localDates.get(localDates.size()-1);
         assertThat(firstRealDay,is(LocalDate.of(2017,2,28)));;
     }
-
-
 }
