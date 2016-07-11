@@ -27,7 +27,6 @@ public class CalendarModel {
 
     }
 
-
     private LocalDate getLastDayOfMonth() {
         LocalDate date = LocalDate.of(year.getValue(), month.getValue(), 1);
         ValueRange range = date.range(ChronoField.DAY_OF_MONTH);
@@ -41,8 +40,6 @@ public class CalendarModel {
             return false;
         } else return true;
     }
-    
-
 
     public List<LocalDate> getDates() {
         return dates;
