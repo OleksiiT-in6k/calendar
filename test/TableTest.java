@@ -3,13 +3,12 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.interlink.view.CalendarView.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by employee on 7/6/16.
