@@ -1,4 +1,5 @@
 package com.interlink.model;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
@@ -44,7 +45,7 @@ public class CalendarModel {
     public static Boolean isToday(LocalDate date) {
         if (date.equals(LocalDate.now())) {
             return true;
-        } else return  false;
+        } else return false;
     }
 
 

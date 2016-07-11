@@ -55,7 +55,7 @@ public class TableTest {
         String realDays = CalendarView.generateDaysByDates(dates, LocalDate.of(2016, 7, 28)
         );
         assertThat(realDays, allOf(containsString((ANSI_RED + "   " + 2 + ANSI_RESET)),
-                                   containsString(ANSI_RED + "   " + 3 + ANSI_RESET))
+                containsString(ANSI_RED + "   " + 3 + ANSI_RESET))
         );
     }
 

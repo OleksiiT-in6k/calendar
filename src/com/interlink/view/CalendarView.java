@@ -25,8 +25,8 @@ public class CalendarView {
         return outPut;
     }
 
-    private static String printDayInRightColor(LocalDate date,LocalDate today) {
-        String outputDay="";
+    private static String printDayInRightColor(LocalDate date, LocalDate today) {
+        String outputDay = "";
         if (date.equals(today)) {
             outputDay += printInColor(date.getDayOfMonth() + "", ANSI_BLUE);
         } else if (!CalendarModel.isWeekday(date)) {
@@ -36,7 +36,7 @@ public class CalendarView {
     }
 
     public static String generateRowSignatures() {
-        String outputMonthes="";
+        String outputMonthes = "";
         outputMonthes += String.format("%1s", "");
         for (DayOfWeek day = DayOfWeek.MONDAY; day.getValue() <= 5; day = day.plus(1)) {
             outputMonthes += String.format("%4s", day.getDisplayName(TextStyle.SHORT, new Locale(LOCALE)));
@@ -55,12 +55,12 @@ public class CalendarView {
     }
 
     public static String generateDaysByDates(List<LocalDate> dates, LocalDate today) {
-        String outputDays="";
+        String outputDays = "";
         DayOfWeek dayOfWeek = DayOfWeek.MONDAY;
         for (int i = 0; i < dates.size(); ) {
             LocalDate date = dates.get(i);
             if (dayOfWeek.equals(date.getDayOfWeek())) {
-                outputDays+=printDayInRightColor(date,today);
+                outputDays += printDayInRightColor(date, today);
                 i++;
             } else
                 outputDays += String.format("%4s", "");
@@ -73,9 +73,9 @@ public class CalendarView {
     }
 
     public static void printCalendar(LocalDate localDate, List<LocalDate> dates) {
-        System.out.println(generateTitleByDate(localDate.getMonth(),localDate.getYear()));
+        System.out.println(generateTitleByDate(localDate.getMonth(), localDate.getYear()));
         System.out.println(generateRowSignatures());
-        System.out.println(generateDaysByDates(dates,localDate));
+        System.out.println(generateDaysByDates(dates, localDate));
     }
 
 }
