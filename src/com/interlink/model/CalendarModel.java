@@ -41,12 +41,7 @@ public class CalendarModel {
             return false;
         } else return true;
     }
-
-    public static Boolean isToday(LocalDate date) {
-        if (date.equals(LocalDate.now())) {
-            return true;
-        } else return false;
-    }
+    
 
 
     public List<LocalDate> getDates() {
