@@ -73,7 +73,7 @@ public class CalendarView {
     }
 
     public static void printCalendar(LocalDate localDate, List<LocalDate> dates) {
-        System.out.println(generateTitleByDate(localDate.getMonth(), localDate.getYear()));
+        System.out.println(generateTitleByDate(dates.get(0).getMonth(), dates.get(0).getYear()));
         System.out.println(generateRowSignatures());
         System.out.println(generateDaysByDates(dates, localDate));
     }
