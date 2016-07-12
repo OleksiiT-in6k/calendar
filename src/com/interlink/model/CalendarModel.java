@@ -24,7 +24,6 @@ public class CalendarModel {
             dates.add(currentDate);
             currentDate = currentDate.plusDays(1);
         }
-
     }
 
     private LocalDate getLastDayOfMonth() {
@@ -43,25 +42,5 @@ public class CalendarModel {
 
     public List<LocalDate> getDates() {
         return dates;
-    }
-
-    public void setDates(List<LocalDate> dates) {
-        this.dates = dates;
-    }
-
-    public Month getMonth() {
-        return month;
-    }
-
-    public void setMonth(Month month) {
-        this.month = month;
-    }
-
-    public Year getYear() {
-        return year;
-    }
-
-    public void setYear(Year year) {
-        this.year = year;
     }
 }
