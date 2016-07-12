@@ -34,17 +34,17 @@ public class CalendarView {
     }
 
     public static String generateRowSignatures() {
-        String outputMonthes = "";
-        outputMonthes += String.format("%1s", "");
+        String outputMonths = "";
+        outputMonths += String.format("%1s", "");
         for (DayOfWeek day = DayOfWeek.MONDAY; day.getValue() <= 5; day = day.plus(1)) {
-            outputMonthes += String.format("%4s", day.getDisplayName(TextStyle.SHORT, new Locale(LOCALE)));
+            outputMonths += String.format("%4s", day.getDisplayName(TextStyle.SHORT, new Locale(LOCALE)));
         }
         for (DayOfWeek day = DayOfWeek.SATURDAY; day.getValue() != 1; day = day.plus(1)) {
-            outputMonthes += ANSI_RED;
-            outputMonthes += String.format("%4s", day.getDisplayName(TextStyle.SHORT, new Locale(LOCALE)));
-            outputMonthes += ANSI_RESET;
+            outputMonths += ANSI_RED;
+            outputMonths += String.format("%4s", day.getDisplayName(TextStyle.SHORT, new Locale(LOCALE)));
+            outputMonths += ANSI_RESET;
         }
-        return outputMonthes;
+        return outputMonths;
     }
 
     public static String generateTitleByDate(Month month, int year) {
