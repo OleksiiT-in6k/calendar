@@ -24,6 +24,10 @@ public abstract class AbstractCalendarView implements CalendarViewConfig {
         weekends.add(DayOfWeek.SUNDAY);
     }
 
+    public AbstractCalendarView(DayOfWeek firstDayOfWeek) {
+        setFirstDayOfWeek(firstDayOfWeek);
+    }
+
     @Override
     public void setFirstDayOfWeek(DayOfWeek firstDayOfWeek) {
         this.firstDayOfWeek = firstDayOfWeek;

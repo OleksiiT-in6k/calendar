@@ -25,6 +25,12 @@ public class CalendarViewInHtml extends AbstractCalendarView {
             "</body>\n" +
                     "</html>");
 
+    public CalendarViewInHtml() {
+    }
+
+    public CalendarViewInHtml(DayOfWeek firstDayOfWeek) {
+        super(firstDayOfWeek);
+    }
 
     @Override
     protected String getEmphasizedToday(LocalDate date) {

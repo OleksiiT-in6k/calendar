@@ -17,6 +17,12 @@ public class CalendarViewInConsole extends AbstractCalendarView {
     public static final Tag START_AND_END_OF_CALENDAR_TAG = new Tag("", "");
     public static final String STRING_FORMAT = "%4s";
 
+    public CalendarViewInConsole() {
+    }
+
+    public CalendarViewInConsole(DayOfWeek firstDayOfWeek) {
+        super(firstDayOfWeek);
+    }
 
     @Override
     protected String getEmphasizedToday(LocalDate date) {
