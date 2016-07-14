@@ -106,9 +106,4 @@ public abstract class AbstractCalendarView {
 
     protected abstract Tag getStartAndEndOfCalendarTag();
 
-
-
-
-
-
 }
