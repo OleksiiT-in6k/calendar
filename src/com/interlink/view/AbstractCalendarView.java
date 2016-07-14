@@ -1,11 +1,10 @@
 package com.interlink.view;
 
-import com.interlink.model.CalendarModel;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,12 +12,26 @@ import java.util.Locale;
 /**
  * Created by employee on 7/12/16.
  */
-public abstract class AbstractCalendarView {
+public abstract class AbstractCalendarView implements CalendarViewConfig {
     public static final String LOCALE = "en";
-
+    private DayOfWeek firstDayOfWeek;
+    private List<DayOfWeek> weekends;
 
     public AbstractCalendarView() {
+        firstDayOfWeek = DayOfWeek.MONDAY;
+        weekends = new ArrayList<>();
+        weekends.add(DayOfWeek.SATURDAY);
+        weekends.add(DayOfWeek.SUNDAY);
+    }
 
+    @Override
+    public void setFirstDayOfWeek(DayOfWeek firstDayOfWeek) {
+        this.firstDayOfWeek = firstDayOfWeek;
+    }
+
+    @Override
+    public void setWeekends(List<DayOfWeek> weekends) {
+        this.weekends = weekends;
     }
 
     public String generateCalendarText(LocalDate localDate, List<LocalDate> dates) {
@@ -30,7 +43,6 @@ public abstract class AbstractCalendarView {
         result += generateDaysByDates(dates, localDate) + "\n";
         result += getStartAndEndOfTableCalendarTag().getOpenedTag();
         result += getStartAndEndOfCalendarTag().getClosedTag();
-
         return result;
     }
 
@@ -46,9 +58,9 @@ public abstract class AbstractCalendarView {
 
     protected String generateRowSignatures() {
         String outputMonths = getStartAndEndOfWeekTag().getOpenedTag();
-        DayOfWeek currentDayOfWeek = DayOfWeek.MONDAY;
+        DayOfWeek currentDayOfWeek = firstDayOfWeek;
         for (int i = 0; i < 7; i++) {
-            if (currentDayOfWeek.equals(DayOfWeek.SATURDAY) || currentDayOfWeek.equals(DayOfWeek.SUNDAY))
+            if (weekends.contains(currentDayOfWeek))
                 outputMonths += getEmphasizedWeekEndSignature(currentDayOfWeek);
             else outputMonths += getEmphasizedWeekDaySignature(currentDayOfWeek);
             currentDayOfWeek = currentDayOfWeek.plus(1);
@@ -60,7 +72,7 @@ public abstract class AbstractCalendarView {
 
     protected String generateDaysByDates(List<LocalDate> dates, LocalDate today) {
         String outputDays = "";
-        DayOfWeek dayOfWeek = DayOfWeek.MONDAY;
+        DayOfWeek dayOfWeek = firstDayOfWeek;
         for (int i = 0; i < dates.size(); ) {
             LocalDate date = dates.get(i);
             if (dayOfWeek.equals(date.getDayOfWeek())) {
@@ -68,8 +80,8 @@ public abstract class AbstractCalendarView {
                 i++;
             } else
                 outputDays += getEmptyCell();
-            if (dayOfWeek.equals(dayOfWeek.SUNDAY)) {
-                dayOfWeek = DayOfWeek.MONDAY;
+            if (dayOfWeek.equals(firstDayOfWeek.minus(1))) {
+                dayOfWeek = firstDayOfWeek;
                 outputDays += getStartAndEndOfWeekTag().getClosedTag();
                 outputDays += getStartAndEndOfWeekTag().getOpenedTag();
             } else dayOfWeek = dayOfWeek.plus(1);
@@ -81,10 +93,14 @@ public abstract class AbstractCalendarView {
         String outputDay = "";
         if (date.equals(today)) {
             outputDay += getEmphasizedToday(date);
-        } else if (!CalendarModel.isWeekday(date)) {
+        } else if (isWeekend(date)) {
             outputDay += getEmphasizedWeekEnd(date);
         } else outputDay += getEmphasizedWeekDay(date);
         return outputDay;
+    }
+
+    private boolean isWeekend(LocalDate date) {
+        return weekends.contains(date.getDayOfWeek());
     }
 
 

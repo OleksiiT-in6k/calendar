@@ -1,9 +1,12 @@
-import com.interlink.model.CalendarModel;
+package com.interlink.model;
+
 import org.junit.Test;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

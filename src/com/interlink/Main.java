@@ -20,17 +20,16 @@ public class Main {
             month = Month.valueOf(args[0]);
         }
         CalendarModel calendarModel = new CalendarModel(month, year);
-        if (args[1] == "console") {
+        if (args[1].equals("console")) {
             printInConsole(calendarModel);
         }
-        if (args[1] == "html")
+        if (args[1].equals("html"))
             printInHtml(calendarModel);
     }
 
     private static void printInConsole(CalendarModel calendarModel) {
         CalendarViewInConsole calendarViewInConsole = new CalendarViewInConsole();
-        System.out.println(
-                calendarViewInConsole.generateCalendarText(LocalDate.now(), calendarModel.getDates()));
+        System.out.println(calendarViewInConsole.generateCalendarText(LocalDate.now(), calendarModel.getDates()));
     }
 
     private static void printInHtml(CalendarModel calendarModel) {
