@@ -35,9 +35,7 @@ public class CalendarModel {
     }
 
     public static Boolean isWeekday(LocalDate date) {
-        if (date.getDayOfWeek().equals(DayOfWeek.SATURDAY) || date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-            return false;
-        } else return true;
+        return (!(date.getDayOfWeek().equals(DayOfWeek.SATURDAY) || date.getDayOfWeek().equals(DayOfWeek.SUNDAY)));
     }
 
     public List<LocalDate> getDates() {
