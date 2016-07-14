@@ -50,7 +50,7 @@ public class ConfiguredViewTest {
 
     @Test
     public void testDaysOnChangedWeekends() throws Exception {
-        calendarViewInConsole.setWeekends(new ArrayList<>(Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY)));
+        calendarViewInConsole.setWeekends(Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY));
         List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
         String realDays = calendarViewInConsole.generateDaysByDates(dates, LocalDate.of(2016, 7, 31));
         assertThat(realDays, containsString(ANSI_RED + "   4" + ANSI_RESET + ANSI_RED + "   5" + ANSI_RESET));
@@ -58,7 +58,7 @@ public class ConfiguredViewTest {
 
     @Test
     public void testSignatureOnChangedWeekends() throws Exception {
-        calendarViewInConsole.setWeekends(new ArrayList<>(Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY)));
+        calendarViewInConsole.setWeekends(Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY));
         String realDays = calendarViewInConsole.generateRowSignatures();
         assertThat(realDays, containsString(ANSI_RED + " Mon" + ANSI_RESET + ANSI_RED + " Tue" + ANSI_RESET));
     }
