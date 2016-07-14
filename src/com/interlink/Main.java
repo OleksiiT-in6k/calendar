@@ -1,6 +1,7 @@
 package com.interlink;
 
 import com.interlink.model.CalendarModel;
+import com.interlink.view.CalendarFacade;
 import com.interlink.view.CalendarViewInConsole;
 import com.interlink.view.CalendarViewInHtml;
 
@@ -16,15 +17,18 @@ public class Main {
     public static void main(String[] args) {
         Year year = Year.now();
         Month month = LocalDate.now().getMonth();
-        if (!(args.length == 0)) {
-            month = Month.valueOf(args[0]);
-        }
-        CalendarModel calendarModel = new CalendarModel(month, year);
-        if (args[1].equals("console")) {
-            printInConsole(calendarModel);
-        }
-        if (args[1].equals("html"))
-            printInHtml(calendarModel);
+//        if (!(args.length == 0)) {
+//            month = Month.valueOf(args[0]);
+//        }
+//        CalendarModel calendarModel = new CalendarModel(month, year);
+//        if (args[1].equals("console")) {
+//            printInConsole(calendarModel);
+//        }
+//        if (args[1].equals("html"))
+//            printInHtml(calendarModel);
+
+        CalendarFacade calendarFacade = new CalendarFacade(month, year, "Html");
+        System.out.println(calendarFacade.generateCalendar(LocalDate.now()));
     }
 
     private static void printInConsole(CalendarModel calendarModel) {

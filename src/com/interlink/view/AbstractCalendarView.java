@@ -25,6 +25,7 @@ public abstract class AbstractCalendarView implements CalendarViewConfig {
     }
 
     public AbstractCalendarView(DayOfWeek firstDayOfWeek) {
+        this();
         setFirstDayOfWeek(firstDayOfWeek);
     }
 

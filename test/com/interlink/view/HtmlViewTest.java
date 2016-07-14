@@ -15,7 +15,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class HTMLViewTest {
+public class HtmlViewTest {
     private List<LocalDate> generateDateList(LocalDate startDate, LocalDate finishDate) {
         List<LocalDate> dates = new ArrayList<>();
         for (LocalDate date = startDate; date.isBefore(finishDate.plusDays(1)); date = date.plusDays(1))
@@ -47,6 +47,7 @@ public class HTMLViewTest {
                 "<td class=\"weekend\">Sat</td>" +
                 "<td class=\"weekend\">Sun</td></tr>"));
     }
+
 
     @Test
     public void firstDayInTableTest() throws Exception {
@@ -82,6 +83,5 @@ public class HTMLViewTest {
         assertThat(realDays, allOf(containsString(("<td class=\"weekend\">2</td>")),
                 containsString("<td class=\"weekend\">3</td>"))
         );
-
     }
 }
