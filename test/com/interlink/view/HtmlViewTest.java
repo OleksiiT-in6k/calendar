@@ -59,7 +59,7 @@ public class HtmlViewTest {
     @Test
     public void checkStartOfHTMLStructure() throws Exception {
         List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
-        String realStartOfDocument = calendarViewInHtml.generateCalendarText(LocalDate.of(2016, 7, 14), dates);
+        String realStartOfDocument = calendarViewInHtml.generateCalendarText(() -> LocalDate.of(2016, 7, 14), dates);
         assertThat(realStartOfDocument, startsWith("<html>\n" +
                 "<head>\n" +
                 "<title>Calendar</title>\n" +
@@ -70,7 +70,7 @@ public class HtmlViewTest {
     @Test
     public void checkEndOfHTMLStructure() throws Exception {
         List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
-        String realStartOfDocument = calendarViewInHtml.generateCalendarText(LocalDate.of(2016, 7, 14), dates);
+        String realStartOfDocument = calendarViewInHtml.generateCalendarText(() -> LocalDate.of(2016, 7, 14), dates);
         assertThat(realStartOfDocument, endsWith("</body>\n" +
                 "</html>"));
     }

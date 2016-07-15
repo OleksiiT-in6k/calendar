@@ -1,13 +1,13 @@
 package com.interlink.view;
 
-import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Created by employee on 7/14/16.
  */
 public interface CalendarViewConfig {
-    void setFirstDayOfWeek(DayOfWeek firstDayOfWeek);
 
-    void setWeekends(List<DayOfWeek> weekends);
+    String generateCalendarText(Supplier<LocalDate> localDate, List<LocalDate> dates);
 }

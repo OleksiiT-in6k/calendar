@@ -7,6 +7,7 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Supplier;
 
 
 /**
@@ -29,27 +30,29 @@ public abstract class AbstractCalendarView implements CalendarViewConfig {
         setFirstDayOfWeek(firstDayOfWeek);
     }
 
-    @Override
+
     public void setFirstDayOfWeek(DayOfWeek firstDayOfWeek) {
         this.firstDayOfWeek = firstDayOfWeek;
     }
 
-    @Override
+
     public void setWeekends(List<DayOfWeek> weekends) {
         this.weekends = weekends;
     }
 
-    public String generateCalendarText(LocalDate localDate, List<LocalDate> dates) {
+    @Override
+    public String generateCalendarText(Supplier<LocalDate> localDateSupplier, List<LocalDate> dates) {
         String result = "";
         result += getStartAndEndOfCalendarTag().getOpenedTag();
         result += getStartAndEndOfTableCalendarTag().getOpenedTag();
         result += generateTitleByDate(dates.get(0).getMonth(), dates.get(0).getYear()) + "\n";
         result += generateRowSignatures();
-        result += generateDaysByDates(dates, localDate) + "\n";
+        result += generateDaysByDates(dates, localDateSupplier.get()) + "\n";
         result += getStartAndEndOfTableCalendarTag().getOpenedTag();
         result += getStartAndEndOfCalendarTag().getClosedTag();
         return result;
     }
+
 
     protected String getStringWithTags(String text, Tag tag) {
         String outPut = tag.getOpenedTag() + text + tag.getClosedTag();
