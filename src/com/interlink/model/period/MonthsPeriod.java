@@ -30,7 +30,7 @@ public abstract class MonthsPeriod implements PeriodInterface {
         return yearMonths;
     }
 
-    public void setYearMonths(List<YearMonth> yearMonths) {
+    protected void setYearMonths(List<YearMonth> yearMonths) {
         this.yearMonths = yearMonths;
     }
 
