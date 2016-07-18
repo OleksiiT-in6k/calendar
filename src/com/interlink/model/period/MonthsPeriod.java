@@ -34,5 +34,4 @@ public abstract class MonthsPeriod implements PeriodInterface {
         this.yearMonths = yearMonths;
     }
 
-
 }

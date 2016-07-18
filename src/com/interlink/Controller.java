@@ -14,10 +14,18 @@ import java.util.Scanner;
  * Created by Алекс on 17.07.2016.
  */
 public class Controller {
-    CalendarModel calendarModel;
-    CalendarView calendarView;
-    LocalDate localDate;
-    MonthsPeriod monthsPeriod;
+    public static final String UP_COMMAND = "w";
+    public static final String DOWN_COMMAND = "s";
+    public static final String LEFT_COMMAND = "a";
+    public static final String RIGHT_COMMAND = "d";
+
+
+    private CalendarModel calendarModel;
+
+
+    private CalendarView calendarView;
+    private LocalDate localDate;
+    private MonthsPeriod monthsPeriod;
 
     Controller(YearMonth yearMonth, LocalDate localDate) {
         calendarModel = new CalendarModel(yearMonth);
@@ -49,23 +57,42 @@ public class Controller {
 
     protected void runSingleCommand(String singleCommand) {
         switch (singleCommand) {
-            case "w": {
+            case UP_COMMAND: {
                 monthsPeriod = monthsPeriod.increase();
                 break;
             }
-            case "s": {
+            case DOWN_COMMAND: {
                 monthsPeriod = monthsPeriod.decrease();
                 break;
             }
-            case "a": {
+            case LEFT_COMMAND: {
                 monthsPeriod = monthsPeriod.previous();
                 break;
             }
-            case "d": {
+            case RIGHT_COMMAND: {
                 monthsPeriod = monthsPeriod.next();
                 break;
             }
         }
     }
 
+    protected MonthsPeriod getMonthsPeriod() {
+        return monthsPeriod;
+    }
+
+    protected void setMonthsPeriod(MonthsPeriod monthsPeriod) {
+        this.monthsPeriod = monthsPeriod;
+    }
+
+    protected CalendarView getCalendarView() {
+        return calendarView;
+    }
+
+    protected CalendarModel getCalendarModel() {
+        return calendarModel;
+    }
+
+    protected void setCalendarModel(CalendarModel calendarModel) {
+        this.calendarModel = calendarModel;
+    }
 }

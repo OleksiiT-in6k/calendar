@@ -5,7 +5,6 @@ import java.time.YearMonth;
 
 public class Main {
 
-    static CalendarFacade calendarFacade;
 
     public static void main(String[] args) {
 
