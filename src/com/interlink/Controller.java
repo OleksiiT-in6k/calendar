@@ -1,12 +1,8 @@
 package com.interlink;
 
-import com.interlink.model.CalendarModel;
 import com.interlink.model.period.MonthsPeriod;
 import com.interlink.model.period.PeriodForSingleMonth;
-import com.interlink.view.CalendarView;
-import com.interlink.view.CalendarViewInConsole;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Scanner;
 
@@ -20,25 +16,36 @@ public class Controller {
     public static final String RIGHT_COMMAND = "d";
 
 
-    private CalendarModel calendarModel;
-
-
-    private CalendarView calendarView;
-    private LocalDate localDate;
+    private Calendar calendar;
     private MonthsPeriod monthsPeriod;
+    private Command command;
 
-    Controller(YearMonth yearMonth, LocalDate localDate) {
-        calendarModel = new CalendarModel(yearMonth);
-        calendarView = new CalendarViewInConsole();
+
+    Controller(YearMonth yearMonth, Calendar calendar) {
+        this.calendar = calendar;
         monthsPeriod = new PeriodForSingleMonth(yearMonth);
-        this.localDate = localDate;
+        command = new CommandImpl();
     }
 
-    public void run() {
-        System.out.println(calendarView.generateCalendarText(LocalDate::now, calendarModel.getDatesInMonths()));
-        runCommand(getCommand());
-        calendarModel = new CalendarModel(monthsPeriod.getYearMonths());
-        System.out.println(calendarView.generateCalendarText(LocalDate::now, calendarModel.getDatesInMonths()));
+    public String getStartedCalendar() {
+        String result = "";
+        result += generateCalendarForPeriod();
+        return result;
+    }
+
+    public String run() {
+        String result = "";
+        runCommand(command.getCommand());
+        result += generateCalendarForPeriod();
+        return result;
+    }
+
+    protected String generateCalendarForPeriod() {
+        String result = "";
+        for (YearMonth yearMonth : monthsPeriod.getYearMonths()) {
+            result += calendar.generateCalendar(yearMonth);
+        }
+        return result;
     }
 
     protected String getCommand() {
@@ -84,15 +91,9 @@ public class Controller {
         this.monthsPeriod = monthsPeriod;
     }
 
-    protected CalendarView getCalendarView() {
-        return calendarView;
+    public void setCommand(Command command) {
+        this.command = command;
     }
 
-    protected CalendarModel getCalendarModel() {
-        return calendarModel;
-    }
 
-    protected void setCalendarModel(CalendarModel calendarModel) {
-        this.calendarModel = calendarModel;
-    }
 }

@@ -33,8 +33,8 @@ public class DateTest {
     @Test
     public void checkListLengthForYear() throws Exception {
         CalendarModel calendarModel = new CalendarModel(2016);
-        List<LocalDate> localDates = calendarModel.getDates();
-        assertThat(localDates.size(), is(366));
+        List<List<LocalDate>> localDates = calendarModel.getDatesInMonths();
+        assertThat(localDates.size(), is(12));
 
     }
 }

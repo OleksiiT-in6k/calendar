@@ -30,6 +30,7 @@ public class CalendarModel {
         dates = new ArrayList<>();
         for (int i = 1; i <= 12; i++)
             addDatesForYearMonth(YearMonth.of(Year, Month.of(i)));
+        datesInMonths = splitIntoMonths();
     }
 
 
@@ -49,12 +50,12 @@ public class CalendarModel {
         Month currentMonth = dates.get(0).getMonth();
         List monthDays = new ArrayList<>();
         for (LocalDate date : dates) {
-            monthDays.add(date);
             if (!(date.getMonth().equals(currentMonth))) {
                 result.add(new ArrayList<>(monthDays));
                 monthDays = new ArrayList<>();
+                monthDays.add(date);
                 currentMonth = date.getMonth();
-            }
+            } else monthDays.add(date);
         }
         result.add(new ArrayList<>(monthDays));
         return result;
