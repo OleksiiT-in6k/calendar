@@ -16,12 +16,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Created by employee on 7/6/16.
  */
 public class ConsoleViewTest {
-    private List<LocalDate> generateDateList(LocalDate startDate, LocalDate finishDate) {
+    private List<LocalDate> generateDateListForMonth(LocalDate startDate, LocalDate finishDate) {
         List<LocalDate> dates = new ArrayList<>();
         for (LocalDate date = startDate; date.isBefore(finishDate.plusDays(1)); date = date.plusDays(1))
             dates.add(date);
         return dates;
     }
+
 
     private CalendarViewInConsole calendarViewInConsole;
 
@@ -45,7 +46,7 @@ public class ConsoleViewTest {
 
     @Test
     public void daysTestOnRightEnters() {
-        List<LocalDate> dates = generateDateList(LocalDate.of(2016, 5, 1), LocalDate.of(2016, 5, 31));
+        List<LocalDate> dates = generateDateListForMonth(LocalDate.of(2016, 5, 1), LocalDate.of(2016, 5, 31));
         String realDays = calendarViewInConsole.generateDaysByDates(dates, LocalDate.of(2016, 2, 1));
         assertThat(realDays, allOf(
                 containsString("\n   2"),
@@ -59,7 +60,7 @@ public class ConsoleViewTest {
 
     @Test
     public void daysTestOnRightWeekendsColor() {
-        List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
+        List<LocalDate> dates = generateDateListForMonth(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
         String realDays = calendarViewInConsole.generateDaysByDates(dates, LocalDate.of(2016, 7, 28)
         );
         assertThat(realDays, allOf(containsString((ANSI_RED + "   " + 2 + ANSI_RESET)),
@@ -69,7 +70,7 @@ public class ConsoleViewTest {
 
     @Test
     public void daysTestOnRightTodayDay() {
-        List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
+        List<LocalDate> dates = generateDateListForMonth(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
         String realDays = calendarViewInConsole.generateDaysByDates(dates, LocalDate.of(2016, 7, 28));
         assertThat(realDays, containsString(ANSI_BLUE + "  " + 28 + ANSI_RESET));
     }

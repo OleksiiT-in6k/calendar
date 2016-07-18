@@ -13,19 +13,19 @@ import java.util.function.Supplier;
 /**
  * Created by employee on 7/12/16.
  */
-public abstract class AbstractCalendarView implements CalendarViewConfig {
+public abstract class CalendarView implements CalendarViewConfig {
     public static final String LOCALE = "en";
     private DayOfWeek firstDayOfWeek;
     private List<DayOfWeek> weekends;
 
-    public AbstractCalendarView() {
+    public CalendarView() {
         firstDayOfWeek = DayOfWeek.MONDAY;
         weekends = new ArrayList<>();
         weekends.add(DayOfWeek.SATURDAY);
         weekends.add(DayOfWeek.SUNDAY);
     }
 
-    public AbstractCalendarView(DayOfWeek firstDayOfWeek) {
+    public CalendarView(DayOfWeek firstDayOfWeek) {
         this();
         setFirstDayOfWeek(firstDayOfWeek);
     }
@@ -41,7 +41,14 @@ public abstract class AbstractCalendarView implements CalendarViewConfig {
     }
 
     @Override
-    public String generateCalendarText(Supplier<LocalDate> localDateSupplier, List<LocalDate> dates) {
+    public String generateCalendarText(Supplier<LocalDate> localDateSupplier, List<List<LocalDate>> dates) {
+        String result = "";
+        for (List<LocalDate> dateList : dates)
+            result += generateCalendarForMonth(localDateSupplier, dateList);
+        return result;
+    }
+
+    public String generateCalendarForMonth(Supplier<LocalDate> localDateSupplier, List<LocalDate> dates) {
         String result = "";
         result += getStartAndEndOfCalendarTag().getOpenedTag();
         result += getStartAndEndOfTableCalendarTag().getOpenedTag();
@@ -63,6 +70,7 @@ public abstract class AbstractCalendarView implements CalendarViewConfig {
         String outputMonthAndYear = month.getDisplayName(TextStyle.FULL, new Locale(LOCALE)) + " " + year;
         return outputMonthAndYear;
     }
+
 
     protected String generateRowSignatures() {
         String outputMonths = getStartAndEndOfWeekTag().getOpenedTag();
@@ -97,6 +105,7 @@ public abstract class AbstractCalendarView implements CalendarViewConfig {
         return outputDays;
     }
 
+
     private String printDayInRightColor(LocalDate date, LocalDate today) {
         String outputDay = "";
         if (date.equals(today)) {
@@ -127,6 +136,13 @@ public abstract class AbstractCalendarView implements CalendarViewConfig {
     protected abstract Tag getStartAndEndOfTableCalendarTag();
 
     protected abstract String getEmptyCell();
+
+    protected String getEmptyCell(int times) {
+        String result = "";
+        for (int i = 0; i < times; i++)
+            result += getEmptyCell();
+        return result;
+    }
 
     protected abstract Tag getStartAndEndOfCalendarTag();
 

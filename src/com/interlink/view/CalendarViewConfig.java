@@ -8,6 +8,5 @@ import java.util.function.Supplier;
  * Created by employee on 7/14/16.
  */
 public interface CalendarViewConfig {
-
-    String generateCalendarText(Supplier<LocalDate> localDate, List<LocalDate> dates);
+    String generateCalendarText(Supplier<LocalDate> localDate, List<List<LocalDate>> dates);
 }

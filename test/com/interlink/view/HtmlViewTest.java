@@ -16,10 +16,12 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class HtmlViewTest {
-    private List<LocalDate> generateDateList(LocalDate startDate, LocalDate finishDate) {
-        List<LocalDate> dates = new ArrayList<>();
+    private List<List<LocalDate>> generateDateList(LocalDate startDate, LocalDate finishDate) {
+        List<List<LocalDate>> dates = new ArrayList<>();
+        List<LocalDate> monthDates = new ArrayList<>();
         for (LocalDate date = startDate; date.isBefore(finishDate.plusDays(1)); date = date.plusDays(1))
-            dates.add(date);
+            monthDates.add(date);
+        dates.add(monthDates);
         return dates;
     }
 
@@ -51,14 +53,14 @@ public class HtmlViewTest {
 
     @Test
     public void firstDayInTableTest() throws Exception {
-        List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
-        String realFirstDay = calendarViewInHtml.generateDaysByDates(dates, LocalDate.of(2016, 7, 14));
+        List<List<LocalDate>> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
+        String realFirstDay = calendarViewInHtml.generateDaysByDates(dates.get(0), LocalDate.of(2016, 7, 14));
         assertThat(realFirstDay, startsWith("<td>   </td><td>   </td><td>   </td><td>   </td><td>1</td>"));
     }
 
     @Test
     public void checkStartOfHTMLStructure() throws Exception {
-        List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
+        List<List<LocalDate>> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
         String realStartOfDocument = calendarViewInHtml.generateCalendarText(() -> LocalDate.of(2016, 7, 14), dates);
         assertThat(realStartOfDocument, startsWith("<html>\n" +
                 "<head>\n" +
@@ -69,7 +71,7 @@ public class HtmlViewTest {
 
     @Test
     public void checkEndOfHTMLStructure() throws Exception {
-        List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
+        List<List<LocalDate>> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
         String realStartOfDocument = calendarViewInHtml.generateCalendarText(() -> LocalDate.of(2016, 7, 14), dates);
         assertThat(realStartOfDocument, endsWith("</body>\n" +
                 "</html>"));
@@ -77,8 +79,8 @@ public class HtmlViewTest {
 
     @Test
     public void daysTestOnRightWeekendsColor() throws Exception {
-        List<LocalDate> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
-        String realDays = calendarViewInHtml.generateDaysByDates(dates, LocalDate.of(2016, 7, 28)
+        List<List<LocalDate>> dates = generateDateList(LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 31));
+        String realDays = calendarViewInHtml.generateDaysByDates(dates.get(0), LocalDate.of(2016, 7, 28)
         );
         assertThat(realDays, allOf(containsString(("<td class=\"weekend\">2</td>")),
                 containsString("<td class=\"weekend\">3</td>"))

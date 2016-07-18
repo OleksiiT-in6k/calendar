@@ -6,7 +6,7 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 
-public class CalendarViewInConsole extends AbstractCalendarView {
+public class CalendarViewInConsole extends CalendarView {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_BLUE = "\u001B[34m";
@@ -23,6 +23,7 @@ public class CalendarViewInConsole extends AbstractCalendarView {
     public CalendarViewInConsole(DayOfWeek firstDayOfWeek) {
         super(firstDayOfWeek);
     }
+
 
     @Override
     protected String getEmphasizedToday(LocalDate date) {

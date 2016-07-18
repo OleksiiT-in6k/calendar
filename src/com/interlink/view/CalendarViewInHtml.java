@@ -8,7 +8,7 @@ import java.util.Locale;
 /**
  * Created by employee on 7/13/16.
  */
-public class CalendarViewInHtml extends AbstractCalendarView {
+public class CalendarViewInHtml extends CalendarView {
     public static final Tag BLUE_TAG = new Tag("<td class=\"today\">", "</td>");
     public static final Tag RED_TAG = new Tag("<td class=\"weekend\">", "</td>");
     public static final Tag UNCOLORED_TAG = new Tag("<td>", "</td>");
