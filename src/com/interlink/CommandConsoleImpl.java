@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Created by employee on 7/18/16.
  */
-public class CommandImpl implements Command {
+public class CommandConsoleImpl implements Command {
     @Override
     public String getCommand() {
         String command = "";

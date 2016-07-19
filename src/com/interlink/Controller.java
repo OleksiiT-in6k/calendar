@@ -4,7 +4,8 @@ import com.interlink.model.period.MonthsPeriod;
 import com.interlink.model.period.PeriodForSingleMonth;
 
 import java.time.YearMonth;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Алекс on 17.07.2016.
@@ -24,7 +25,7 @@ public class Controller {
     Controller(YearMonth yearMonth, Calendar calendar) {
         this.calendar = calendar;
         monthsPeriod = new PeriodForSingleMonth(yearMonth);
-        command = new CommandImpl();
+        command = new CommandConsoleImpl();
     }
 
     public String getStartedCalendar() {
@@ -42,19 +43,15 @@ public class Controller {
 
     protected String generateCalendarForPeriod() {
         String result = "";
+        List<String> calendarViews = new ArrayList<>();
         for (YearMonth yearMonth : monthsPeriod.getYearMonths()) {
-            result += calendar.generateCalendar(yearMonth);
+            calendarViews.add(calendar.generateCalendar(yearMonth));
         }
+        Aggregator aggregator = new Aggregator(4, 3);
+        result = aggregator.generateFormattedString(calendarViews);
         return result;
     }
 
-    protected String getCommand() {
-        String command = "";
-        Scanner scanIn = new Scanner(System.in);
-        command = scanIn.nextLine();
-        scanIn.close();
-        return command;
-    }
 
     protected void runCommand(String command) {
         for (int i = 0; i < command.length(); i++) {
